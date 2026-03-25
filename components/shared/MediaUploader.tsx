@@ -91,7 +91,8 @@ const MediaUploader = ({
                   height={24}
                 />
               </div>
-                <p className="p-14-medium">Click here to upload image</p>
+                <p className="p-14-medium text-gray-600">Drag & drop or click to upload</p>
+                <p className="text-xs text-gray-500 -mt-2">PNG, JPG up to 10MB</p>
             </div>
           )}
         </div>

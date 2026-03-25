@@ -13,9 +13,7 @@ const MobileNav = () => {
 
   return (
     <header className="header">
-      <Link href="/" className="flex items-center gap-2 md:py-2">
-         <p className="text-3xl font-bold text-center">IMAGINIFY</p>
-      </Link>
+      <div className="flex items-center gap-2 md:py-2" />
 
       <nav className="flex gap-2">
         <SignedIn>
@@ -33,15 +31,6 @@ const MobileNav = () => {
             </SheetTrigger>
             <SheetContent className="sheet-content sm:w-64">
               <>
-                {/*<Image */}
-                {/*  src="/assets/images/logo-text.svg"*/}
-                {/*  alt="logo"*/}
-                {/*  width={152}*/}
-                {/*  height={23}*/}
-                {/*/>*/}
-                  <Link href="/" className="flex items-center gap-2 md:py-2">
-                      <p className="text-[30px] font-bold text-center">IMAGINIFY</p>
-                  </Link>
 
               <ul className="header-nav_elements">
               {navLinks.map((link) => {
@@ -49,7 +38,7 @@ const MobileNav = () => {
 
                 return (
                   <li
-                    className={`${isActive && 'text-dark-600'} p-18 flex whitespace-nowrap text-dark-700`}
+                    className={`${isActive ? 'text-gray-900 bg-gray-100 rounded-xl border border-[#e5e7eb]' : 'text-gray-600 hover:bg-gray-50 rounded-xl'} p-18 flex whitespace-nowrap`}
                     key={link.route}
                     >
                     <Link className="sidebar-link cursor-pointer" href={link.route}>

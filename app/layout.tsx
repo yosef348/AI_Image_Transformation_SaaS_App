@@ -23,10 +23,10 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider appearance={{
-      variables: { colorPrimary: '#624cf5' }
+      variables: { colorPrimary: '#7c5c3b' }
     }}>
       <html lang="en">
-        <body className={cn("font-IBMPlex antialiased", IBMPlex.variable)}>
+        <body className={cn("font-IBMPlex antialiased bg-background text-foreground", IBMPlex.variable)}>
           {children}
         </body>
       </html>
