@@ -1,14 +1,17 @@
+<img width="6912" height="2304" alt="pixora" src="https://github.com/user-attachments/assets/d30b9a1f-d684-4deb-8a10-3e08ee0859b0" />
+
+
 # Pixora
 
 AI-powered image transformation application that enables users to enhance, edit, and manipulate images using advanced AI technologies.
 
-## 🚀 Overview
+## Overview
 
 Pixora is a modern web application built with Next.js that provides powerful AI-driven image editing capabilities. Users can upload images and apply various transformations including restoration, generative fill, object removal, recoloring, and background removal. The platform features a credit-based system for premium transformations and integrates seamlessly with cloud storage and payment processing.
 
 This application is designed for content creators, designers, photographers, and anyone looking to enhance their images with professional-grade AI tools without requiring advanced technical skills.
 
-## ⚙️ Tech Stack
+##  Tech Stack
 
 ### Frontend
 - **Next.js 14.1.0** - React framework with App Router
@@ -36,7 +39,7 @@ This application is designed for content creators, designers, photographers, and
 - **PostCSS** - CSS processing
 - **Autoprefixer** - CSS vendor prefixing
 
-## 🔋 Features
+##  Features
 
 - **User Authentication**: Secure sign-in and sign-up with Clerk
 - **Image Upload**: Drag-and-drop media uploader for various image formats
@@ -52,55 +55,7 @@ This application is designed for content creators, designers, photographers, and
 - **Responsive Design**: Optimized for desktop and mobile devices
 - **Real-time Updates**: Webhook integration for user synchronization
 
-## 📸 Screenshots
-
-![Dashboard](./public/dashboard.png)
-![Transformation Interface](./public/transformation.png)
-
-## 🛠️ Installation & Setup
-
-1. **Clone the repository**
-   ```bash
-   git clone <repository-url>
-   cd pixora
-   ```
-
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
-
-3. **Environment Setup**
-   Create a `.env` file in the root directory with the following variables:
-   ```env
-   # Clerk Authentication
-   NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=your_clerk_publishable_key
-   CLERK_SECRET_KEY=your_clerk_secret_key
-   WEBHOOK_SECRET=your_svix_webhook_secret
-
-   # Database
-   MONGODB_URL=your_mongodb_connection_string
-
-   # Cloudinary
-   NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=your_cloudinary_cloud_name
-   CLOUDINARY_API_KEY=your_cloudinary_api_key
-   CLOUDINARY_API_SECRET=your_cloudinary_api_secret
-
-   # Stripe
-   STRIPE_SECRET_KEY=your_stripe_secret_key
-   STRIPE_WEBHOOK_SECRET=your_stripe_webhook_secret
-   NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=your_stripe_publishable_key
-   ```
-
-4. **Run the development server**
-   ```bash
-   npm run dev
-   ```
-
-5. **Open your browser**
-   Navigate to `http://localhost:3000` to access the application.
-
-## 📝 Usage
+## Usage
 
 1. **Sign Up/Login**: Create an account or sign in with existing credentials
 2. **Upload Image**: Use the media uploader to select an image
@@ -109,10 +64,3 @@ This application is designed for content creators, designers, photographers, and
 5. **Purchase Credits**: Buy additional credits if needed for premium features
 6. **Download Results**: Save or share your transformed images
 
-## 🤝 Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-## 📄 License
-
-This project is private and proprietary.
