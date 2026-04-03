@@ -1,18 +1,36 @@
-import { auth } from "@clerk/nextjs";
+import { currentUser } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 
 import Header from "@/components/shared/Header";
 import TransformationForm from "@/components/shared/TransformationForm";
 import { transformationTypes } from "@/constants";
-import { getUserById } from "@/lib/actions/user.actions";
+import { getUserById, createUser } from "@/lib/actions/user.actions";
 import { getImageById } from "@/lib/actions/image.actions";
 
 const Page = async ({ params: { id } }: SearchParamProps) => {
-  const { userId } = auth();
+  const user = await currentUser();
 
-  if (!userId) redirect("/sign-in");
+  if (!user) redirect("/sign-in");
 
-  const user = await getUserById(userId);
+  let dbUser = await getUserById(user.id);
+
+  if (!dbUser) {
+    const userData = {
+      clerkId: user.id,
+      email: user.emailAddresses[0]?.emailAddress || "",
+      firstName: user.firstName || "",
+      lastName: user.lastName || "",
+      username: user.username || "",
+      photo: user.imageUrl || "",
+    };
+
+    dbUser = await createUser(userData);
+  }
+
+  if (!dbUser) {
+    throw new Error("Failed to get or create user");
+  }
+
   const image = await getImageById(id);
 
   const transformation =
@@ -25,9 +43,9 @@ const Page = async ({ params: { id } }: SearchParamProps) => {
       <section className="mt-10">
         <TransformationForm
           action="Update"
-          userId={user._id}
+          userId={dbUser._id}
           type={image.transformationType as TransformationTypeKey}
-          creditBalance={user.creditBalance}
+          creditBalance={dbUser.creditBalance}
           config={image.config}
           data={image}
         />

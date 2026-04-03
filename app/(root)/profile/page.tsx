@@ -1,20 +1,38 @@
-import { auth } from "@clerk/nextjs";
+import { currentUser } from "@clerk/nextjs";
 import Image from "next/image";
 import { redirect } from "next/navigation";
 
 import { Collection } from "@/components/shared/Collection";
 import Header from "@/components/shared/Header";
 import { getUserImages } from "@/lib/actions/image.actions";
-import { getUserById } from "@/lib/actions/user.actions";
+import { getUserById, createUser } from "@/lib/actions/user.actions";
 
 const Profile = async ({ searchParams }: SearchParamProps) => {
   const page = Number(searchParams?.page) || 1;
-  const { userId } = auth();
+  const user = await currentUser();
 
-  if (!userId) redirect("/sign-in");
+  if (!user) redirect("/sign-in");
 
-  const user = await getUserById(userId);
-  const images = await getUserImages({ page, userId: user._id });
+  let dbUser = await getUserById(user.id);
+
+  if (!dbUser) {
+    const userData = {
+      clerkId: user.id,
+      email: user.emailAddresses[0]?.emailAddress || "",
+      firstName: user.firstName || "",
+      lastName: user.lastName || "",
+      username: user.username || "",
+      photo: user.imageUrl || "",
+    };
+
+    dbUser = await createUser(userData);
+  }
+
+  if (!dbUser) {
+    throw new Error("Failed to get or create user");
+  }
+
+  const images = await getUserImages({ page, userId: dbUser._id });
 
   return (
     <>
@@ -31,7 +49,7 @@ const Profile = async ({ searchParams }: SearchParamProps) => {
               height={50}
               className="size-9 md:size-12"
             />
-            <h2 className="h2-bold text-dark-600">{user.creditBalance}</h2>
+            <h2 className="h2-bold text-dark-600">{dbUser.creditBalance}</h2>
           </div>
         </div>
 

@@ -1,19 +1,36 @@
-import { SignedIn, auth } from "@clerk/nextjs";
+import { SignedIn, currentUser } from "@clerk/nextjs";
 import Image from "next/image";
 import { redirect } from "next/navigation";
 
 import Header from "@/components/shared/Header";
 import { Button } from "@/components/ui/button";
 import { plans } from "@/constants";
-import { getUserById } from "@/lib/actions/user.actions";
+import { getUserById, createUser } from "@/lib/actions/user.actions";
 import Checkout from "@/components/shared/Checkout";
 
 const Credits = async () => {
-  const { userId } = auth();
+  const user = await currentUser();
 
-  if (!userId) redirect("/sign-in");
+  if (!user) redirect("/sign-in");
 
-  const user = await getUserById(userId);
+  let dbUser = await getUserById(user.id);
+
+  if (!dbUser) {
+    const userData = {
+      clerkId: user.id,
+      email: user.emailAddresses[0]?.emailAddress || "",
+      firstName: user.firstName || "",
+      lastName: user.lastName || "",
+      username: user.username || "",
+      photo: user.imageUrl || "",
+    };
+
+    dbUser = await createUser(userData);
+  }
+
+  if (!dbUser) {
+    throw new Error("Failed to get or create user");
+  }
 
   return (
     <>
@@ -66,7 +83,7 @@ const Credits = async () => {
                     plan={plan.name}
                     amount={plan.price}
                     credits={plan.credits}
-                    buyerId={user._id}
+                    buyerId={dbUser._id}
                   />
                 </SignedIn>
               )}
