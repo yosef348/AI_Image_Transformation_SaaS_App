@@ -13,7 +13,10 @@ const IBMPlex = IBM_Plex_Sans({
 
 export const metadata: Metadata = {
   title: "Pixora",
-  description: "AI-powered image generator",
+  description: "AI Powered Image Transformation App",
+  icons: {
+    icon: '/favicon.svg',
+  },
 };
 
 export default function RootLayout({
